@@ -1,0 +1,21 @@
+﻿@page
+<style>
+    pre {
+        margin-bottom: 0px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+    }
+
+    li:before {
+        content: "";
+    }
+</style>
+<div class="container-fluid" style="width:100%;">
+    <ul id="messagesList" style="list-style: none; margin:0px; padding:0px;"></ul>
+</div>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/node.js"></script>
