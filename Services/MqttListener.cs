@@ -69,7 +69,7 @@ public class MqttListener(ILogger<MqttListener> logger, IHubContext<NodeHub> hub
 
         var msg = arg.ApplicationMessage.ConvertPayloadToString();
 
-        logger.LogInformation($"{node} {hardwarePort}:{tncPortIndex} {direction} {msg}");
+        logger.LogDebug($"{node} {hardwarePort}:{tncPortIndex} {direction} {msg}");
 
         Decode decode = new()
         {
@@ -89,6 +89,7 @@ public class MqttListener(ILogger<MqttListener> logger, IHubContext<NodeHub> hub
     private static readonly Dictionary<string, string> hardwarePortMap = new() {
         { "platform-3f980000.usb-usb-0:1.2:1.0", "2m  " },
         { "platform-3f980000.usb-usb-0:1.3:1.0", "70cm" },
+        { "platform-3f980000.usb-usb-0:1.5:1.0", "40m " },
     };
 
     public async Task StopAsync(CancellationToken cancellationToken)
