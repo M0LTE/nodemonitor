@@ -22,9 +22,10 @@ connection.on("ReceiveMessage", function (message) {
         li.style.color = 'red'
     }
 
-    while ($(document).height() > $(window).height()) {
+    /*while ($(document).height() > $(window).height()) {
         list.removeChild(list.children[0])
-    }
+    }*/
+    $("html, body").animate({ scrollTop: $(document).height() }, 50);
 });
 
 connection.start().catch(function (err) {
