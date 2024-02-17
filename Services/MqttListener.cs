@@ -87,9 +87,10 @@ public class MqttListener(ILogger<MqttListener> logger, IHubContext<NodeHub> hub
     private static string GetModemId(string hardwarePort) => hardwarePortMap.TryGetValue(hardwarePort, out var value) ? value : hardwarePort;
 
     private static readonly Dictionary<string, string> hardwarePortMap = new() {
-        { "platform-3f980000.usb-usb-0:1.2:1.0", "2m  " },
+        /*{ "platform-3f980000.usb-usb-0:1.2:1.0", "2m  " },
         { "platform-3f980000.usb-usb-0:1.3:1.0", "70cm" },
-        { "platform-3f980000.usb-usb-0:1.5:1.0", "40m " },
+        { "platform-3f980000.usb-usb-0:1.4:1.0", "6m  " },
+        { "platform-3f980000.usb-usb-0:1.5:1.0", "40m " },*/
     };
 
     public async Task StopAsync(CancellationToken cancellationToken)
