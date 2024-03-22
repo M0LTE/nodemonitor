@@ -71,6 +71,13 @@ public class MqttListener(ILogger<MqttListener> logger, IHubContext<NodeHub> hub
 
         logger.LogDebug($"{node} {hardwarePort}:{tncPortIndex} {direction} {msg}");
 
+        if (msg.StartsWith("AckRply: "))
+        {
+            return;
+        }
+
+        var display = RemoveAckMode(msg.Replace("\r\n", "\n").Replace("\n", " "));
+
         Decode decode = new()
         {
             Timestamp = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss.ff}Z",
@@ -78,10 +85,20 @@ public class MqttListener(ILogger<MqttListener> logger, IHubContext<NodeHub> hub
             ModemId = GetModemId(hardwarePort),
             ModemPort = tncPortIndex,
             Direction = direction,
-            Data = msg.Replace("\r\n", "\n").Replace("\n", " ")
+            Data = display
         };
 
         await hubContext.Clients.All.SendAsync("ReceiveMessage", decode);
+    }
+
+    private static string RemoveAckMode(string v)
+    {
+        if (v.StartsWith("AckR"))
+        {
+            return v.Substring(13); // sorry
+        }
+
+        return v;
     }
 
     private static string GetModemId(string hardwarePort) => hardwarePortMap.TryGetValue(hardwarePort, out var value) ? value : hardwarePort;
